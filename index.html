@@ -13,11 +13,29 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Cabin&family=Roboto:wght@700&display=swap"
+    rel="stylesheet">
 </head>
 <body>
-  <header>
+  <header class="container">
+    <div class="row background-color-orange-red black">
+      <h1 class="logo">Code Journal</h1>
+    </div>
   </header>
-  <main>
+  <main class="container">
+    <div class="row" data-view="entry-form">
+      <form>
+        <h1>New Entry</h1>
+        <img class="column-full" src="images/placeholder-image-square.jpg" alt="placeholder-image-square">
+        <label>
+          <h2>Title</h2>
+          <input type="text">
+        </label>
+      </form>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

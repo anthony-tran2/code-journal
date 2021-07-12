@@ -1,0 +1,33 @@
+body {
+  font-family: 'Cabin', sans-serif;
+  font-weight: 400;
+  background-color: #f7f3e9;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+
+input[type=text] {
+  width: 100%;
+}
+
+.logo {
+  font-family: 'Amatic SC', cursive;
+  font-weight: 700;
+}
+
+.background-orange-red {
+  background-color: #f05945;
+}
+
+.black {
+  color: black;
+}
+
+.white {
+  color: white;
+}
