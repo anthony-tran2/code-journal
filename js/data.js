@@ -10,8 +10,7 @@ var data = {
 var previousDataJSON = localStorage.getItem('code-journal-local-storage');
 if (previousDataJSON !== null) {
   var oldData = JSON.parse(previousDataJSON);
-  data.entries = oldData.entries;
-  data.nextEntryId = oldData.nextEntryId;
+  data = oldData;
 }
 
 function storeData(event) {
