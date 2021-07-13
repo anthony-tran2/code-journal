@@ -29,8 +29,9 @@ function EntryFormData(event) {
     notes: $form.elements.notes.value
   };
   formInputs.nextEntryId = data.nextEntryId;
-  data.nextEntryId.value += 1;
-  data.entries.prepend(formInputs);
+  data.nextEntryId += 1;
+  data.entries.unshift(formInputs);
+  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
 }
 
