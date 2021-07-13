@@ -2,6 +2,7 @@
 /* exported data */
 
 var $img = document.querySelector('div.column-half>img');
+var $form = document.querySelector('#journal-entry');
 
 function imgURL(event) {
   if (event.target.getAttribute('name') !== 'imgURL') {
@@ -16,3 +17,20 @@ function imgURL(event) {
 }
 
 document.addEventListener('input', imgURL);
+
+function EntryFormData(event) {
+  event.preventDefault();
+  if (event.target.elements.submitButton.getAttribute('name') !== 'submitButton') {
+    return;
+  }
+  var formInputs = {
+    name: $form.elements.title.value,
+    imgURL: $form.elements.imgURL.value,
+    notes: $form.elements.notes.value
+  };
+  formInputs.nextEntryId = data.nextEntryId;
+  data.entries.prepend(formInputs);
+  $form.reset();
+}
+
+$form.addEventListener('submit', EntryFormData);
