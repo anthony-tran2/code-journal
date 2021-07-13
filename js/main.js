@@ -29,6 +29,7 @@ function EntryFormData(event) {
     notes: $form.elements.notes.value
   };
   formInputs.nextEntryId = data.nextEntryId;
+  data.nextEntryId.value += 1;
   data.entries.prepend(formInputs);
   $form.reset();
 }
