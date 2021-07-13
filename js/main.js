@@ -10,15 +10,14 @@ function imgURL(event) {
   }
   var newURL = event.target.value;
   $img.setAttribute('src', newURL);
-  if (event.target.value !== '') {
-    return;
+  if (event.target.value === '') {
+    $img.setAttribute('src', 'images/placeholder-image-square.jpg');
   }
-  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 
 document.addEventListener('input', imgURL);
 
-function EntryFormData(event) {
+function entryFormData(event) {
   event.preventDefault();
   if (event.target.elements.submitButton.getAttribute('name') !== 'submitButton') {
     return;
@@ -35,18 +34,4 @@ function EntryFormData(event) {
   $form.reset();
 }
 
-$form.addEventListener('submit', EntryFormData);
-
-var previousDataJSON = localStorage.getItem('code-journal-local-storage');
-if (previousDataJSON !== null) {
-  var oldData = JSON.parse(previousDataJSON);
-  data.entries = oldData.entries;
-  data.nextEntryId = oldData.nextEntryId;
-}
-
-function storeData(event) {
-  var dataJSON = JSON.stringify(data);
-  localStorage.setItem('code-journal-local-storage', dataJSON);
-}
-
-window.addEventListener('beforeunload', storeData);
+$form.addEventListener('submit', entryFormData);
