@@ -28,7 +28,7 @@ function EntryFormData(event) {
     imgURL: $form.elements.imgURL.value,
     notes: $form.elements.notes.value
   };
-  formInputs.nextEntryId = data.nextEntryId;
+  formInputs.entryId = data.nextEntryId;
   data.nextEntryId += 1;
   data.entries.unshift(formInputs);
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
