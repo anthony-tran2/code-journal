@@ -29,7 +29,7 @@
   </header>
   <main class="container background-main">
     <div data-view="entry-form">
-      <form class="row">
+      <form id="journal-entry" class="row">
         <div class="column-full">
           <h1>New Entry</h1>
         </div>
@@ -39,17 +39,17 @@
         <div class="column-half">
           <label>
             <h3 class="margin-top-half">Title</h3>
-            <input required class="text-box-borders text-size-1point2" type="text">
+            <input required name="title" class="text-box-borders text-size-1point2" type="text">
           </label>
           <label>
             <h3>Photo URL</h3>
-            <input required class="text-box-borders text-size-1point2" type="text">
+            <input required name="imgURL" class="text-box-borders text-size-1point2" type="text">
           </label>
         </div>
         <div class="column-full">
           <label>
             <h3>Notes</h3>
-            <input required type="text" class="text-box-borders notes-input text-size-1point2">
+            <textarea required name="notes" class="text-box-borders text-size-1point2" rows="8"></textarea>
           </label>
         </div>
         <div class="column-full justify-right margin-top-1rem">
