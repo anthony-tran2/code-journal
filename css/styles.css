@@ -34,6 +34,10 @@ header {
   background-color: #f05945;
 }
 
+input.notes-input {
+  height: 10rem;
+}
+
 .logo {
   font-family: 'Open Sans Condensed', sans-serif;
 }
