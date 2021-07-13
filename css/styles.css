@@ -46,10 +46,6 @@ input.notes-input {
   background-color: #f7f3e9;
 }
 
-.background-orange-red {
-  background-color: #f05945;
-}
-
 .text-box-borders {
   border: lightgray 1px solid;
   border-radius: 4px;
@@ -63,7 +59,7 @@ input.notes-input {
   color: black;
 }
 
-.justify-right {
+.text-align-right {
   text-align: right;
 }
 
@@ -78,6 +74,15 @@ input.notes-input {
 
 .margin-top-1rem {
   margin-top: 1rem;
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.img-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;
 }
 
 @media screen and (min-width: 767px) {
