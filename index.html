@@ -16,24 +16,45 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Cabin&family=Roboto:wght@700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cabin&family=Open+Sans+Condensed:wght@300&family=Roboto:wght@700&display=swap"
     rel="stylesheet">
 </head>
 <body>
-  <header class="container">
-    <div class="row background-color-orange-red black">
-      <h1 class="logo">Code Journal</h1>
+  <header>
+    <div class="black container">
+      <div class="row">
+        <h1 class="logo">Code Journal</h1>
+      </div>
     </div>
   </header>
-  <main class="container">
-    <div class="row" data-view="entry-form">
-      <form>
-        <h1>New Entry</h1>
-        <img class="column-full" src="images/placeholder-image-square.jpg" alt="placeholder-image-square">
-        <label>
-          <h2>Title</h2>
-          <input type="text">
-        </label>
+  <main class="container background-main">
+    <div data-view="entry-form">
+      <form class="row">
+        <div class="column-full">
+          <h1>New Entry</h1>
+        </div>
+        <div class="column-half">
+          <img src="images/placeholder-image-square.jpg" alt="journal-entry-image">
+        </div>
+        <div class="column-half">
+          <label>
+            <h3 class="margin-top-half">Title</h3>
+            <input class="text-box-borders text-size-1point2" type="text">
+          </label>
+          <label>
+            <h3>Photo URL</h3>
+            <input class="text-box-borders text-size-1point2" type="text">
+          </label>
+        </div>
+        <div class="column-full">
+          <label>
+            <h3>Notes</h3>
+            <textarea class="text-box-borders text-size-1point2" rows="10"></textarea>
+          </label>
+        </div>
+        <div class="column-full justify-right margin-top-1rem">
+          <button class="save-button" type="submit">SAVE</button>
+        </div>
       </form>
     </div>
   </main>

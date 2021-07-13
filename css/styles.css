@@ -1,33 +1,83 @@
 body {
   font-family: 'Cabin', sans-serif;
-  font-weight: 400;
   background-color: #f7f3e9;
+  line-height: 1.2;
 }
 
 h1,
 h2,
 h3 {
   font-family: 'Roboto', sans-serif;
-  font-weight: 700;
+}
+
+h2,
+h3 {
+  line-height: 0.3;
+}
+
+img {
+  width: 100%;
 }
 
 input[type=text] {
   width: 100%;
+  height: 3rem;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  font-family: 'Cabin', sans-serif;
+}
+
+header {
+  background-color: #f05945;
 }
 
 .logo {
-  font-family: 'Amatic SC', cursive;
-  font-weight: 700;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.background-main {
+  background-color: #f7f3e9;
 }
 
 .background-orange-red {
   background-color: #f05945;
 }
 
+.text-box-borders {
+  border: lightgray 1px solid;
+  border-radius: 4px;
+}
+
+.text-size-1point2 {
+  font-size: 1.2rem;
+}
+
 .black {
   color: black;
 }
 
-.white {
-  color: white;
+.justify-right {
+  text-align: right;
+}
+
+.save-button {
+  background-color: #f05945;
+  border: none;
+  border-radius: 4px;
+  height: 2rem;
+  width: 4rem;
+  font-family: 'Cabin', sans-serif;
+}
+
+.margin-top-1rem {
+  margin-top: 1rem;
+}
+
+@media screen and (min-width: 767px) {
+  .margin-top-half {
+    margin-top: 0.5rem;
+  }
 }
