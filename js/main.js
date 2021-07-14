@@ -3,8 +3,7 @@
 
 var $img = document.querySelector('div.column-half>img');
 var $form = document.querySelector('#journal-entry');
-var $divEntryForm = document.querySelector('div[data-view="entry-form"]');
-var $divEntries = document.querySelector('div[data-view="entries"]');
+var $dataViewDivs = document.querySelectorAll('div[data-view]');
 var ul = document.querySelector('ul.padding-left-0');
 
 function entryViewCreation(entry) {
@@ -61,30 +60,19 @@ function entryFormData(event) {
   data.entries.unshift(formInputs);
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
-
   var newEntry = entryViewCreation(data.entries[0]);
   ul.prepend(newEntry);
-
-  $divEntryForm.className += ' ' + 'hidden';
-  $divEntries.className = 'container';
-  data.view = 'entries';
+  switchView('entries');
 }
 
 $form.addEventListener('submit', entryFormData);
 
 function journalEntryView(event) {
-  if (data.view === 'entries') {
-    $divEntryForm.className += ' ' + 'hidden';
-    $divEntries.className = 'container';
-  } else if (data.view === 'entry-form') {
-    $divEntries.className += ' ' + 'hidden';
-    $divEntryForm.className = 'container';
-  }
+  switchView(data.view);
   if (data.entries.length === 0) {
     var noEntries = document.querySelector('div.justify-center');
     noEntries.className = 'row justify-center';
   }
-
   for (var i = 0; i < data.entries.length; i++) {
     var displayEntries = entryViewCreation(data.entries[i]);
     ul.appendChild(displayEntries);
@@ -93,16 +81,21 @@ function journalEntryView(event) {
 
 window.addEventListener('DOMContentLoaded', journalEntryView);
 
-function switchView(event) {
-  if (event.target.textContent === 'Entries') {
-    $divEntryForm.className += ' ' + 'hidden';
-    $divEntries.className = 'container';
-    data.view = 'entries';
-  } else if (event.target.getAttribute('name') === 'newButton') {
-    $divEntries.className += ' ' + 'hidden';
-    $divEntryForm.className = 'container';
-    data.view = 'entry-form';
+function switchView(string) {
+  for (var i = 0; i < $dataViewDivs.length; i++) {
+    if ($dataViewDivs[i].getAttribute('data-view') !== string) {
+      $dataViewDivs[i].className += ' ' + 'hidden';
+    } else {
+      $dataViewDivs[i].className = 'container';
+    }
   }
+  data.view = string;
 }
 
-document.addEventListener('click', switchView);
+document.addEventListener('click', function (event) {
+  if (event.target.textContent === 'Entries') {
+    switchView('entries');
+  } else if (event.target.getAttribute('name') === 'newButton') {
+    switchView('entry-form');
+  }
+});
