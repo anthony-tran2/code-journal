@@ -63,6 +63,7 @@ function entryFormData(event) {
 
   $divEntryForm.className += ' ' + 'hidden';
   $divEntries.className = 'container';
+  data.view = 'entries';
 }
 
 $form.addEventListener('submit', entryFormData);
