@@ -24,17 +24,20 @@
     <div class="black container">
       <div class="row">
         <h1 class="logo">Code Journal</h1>
+        <nav>
+          <a class="entriesNav">Entries</a>
+        </nav>
       </div>
     </div>
   </header>
-  <main class="container background-main">
-    <div data-view="entry-form">
+  <main class="background-main">
+    <div data-view="entry-form" class="container hidden">
       <form id="journal-entry" class="row">
         <div class="column-full">
           <h1>New Entry</h1>
         </div>
         <div class="column-half">
-          <img class="cover img-container" src="images/placeholder-image-square.jpg" alt="journal-entry-image">
+          <img class="cover img-container-create" src="images/placeholder-image-square.jpg" alt="journal-entry-image">
         </div>
         <div class="column-half">
           <label>
@@ -53,9 +56,24 @@
           </label>
         </div>
         <div class="column-full text-align-right margin-top-1rem">
-          <button name="submitButton" class="save-button" type="submit">SAVE</button>
+          <button name="submitButton" class="button-design" type="submit">SAVE</button>
         </div>
       </form>
+    </div>
+    <div data-view="entries" class="container">
+      <div class="row">
+        <div class="column-half">
+          <h1>Entries</h1>
+        </div>
+        <div class="column-half text-align-right margin-auto">
+          <button name="newButton" class="button-design">NEW</button>
+        </div>
+      </div>
+      <div class="row justify-center hidden">
+        <p>No entries have been recorded.</p>
+      </div>
+      <ul class="padding-left-0">
+      </ul>
     </div>
   </main>
   <script src="js/data.js"></script>
