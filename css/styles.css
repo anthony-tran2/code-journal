@@ -15,9 +15,16 @@ h3 {
   line-height: 0.3;
 }
 
-h2.logo {
-  line-height: 1.9;
+nav {
+  margin: auto;
   margin-left: 1rem;
+  font-size: 1.5rem;
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+a,
+button {
+  cursor: pointer;
 }
 
 ul {
@@ -41,6 +48,11 @@ textarea {
 
 header {
   background-color: #f05945;
+}
+
+h2.logo {
+  line-height: 1.9;
+  margin-left: 1rem;
 }
 
 input.notes-input {
