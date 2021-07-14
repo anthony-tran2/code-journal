@@ -19,13 +19,25 @@ function entryViewCreation(entry) {
 
   var textDiv = document.createElement('div');
   textDiv.setAttribute('class', 'column-half');
+  var titleRowDiv = document.createElement('div');
+  titleRowDiv.className = 'row';
+  var h2TitleDiv = document.createElement('div');
+  h2TitleDiv.className = 'column-half entryTitle';
+  var iconDiv = document.createElement('div');
+  iconDiv.className = 'column-half text-align-right icon';
+  var icon = document.createElement('i');
+  icon.className = 'fas fa-pen';
   var h2Title = document.createElement('h2');
   h2Title.textContent = entry.title;
   var pNotes = document.createElement('p');
   pNotes.textContent = entry.notes;
 
   imgDiv.appendChild(imgView);
-  textDiv.appendChild(h2Title);
+  iconDiv.appendChild(icon);
+  h2TitleDiv.appendChild(h2Title);
+  titleRowDiv.appendChild(h2TitleDiv);
+  titleRowDiv.appendChild(iconDiv);
+  textDiv.appendChild(titleRowDiv);
   textDiv.appendChild(pNotes);
   li.appendChild(imgDiv);
   li.appendChild(textDiv);
