@@ -9,6 +9,7 @@ var ul = document.querySelector('ul.padding-left-0');
 function entryViewCreation(entry) {
   var li = document.createElement('li');
   li.setAttribute('class', 'row margin-bottom-li');
+  li.setAttribute('data-entry-id', entry.entryId);
 
   var imgDiv = document.createElement('div');
   imgDiv.setAttribute('class', 'column-half');
