@@ -5,6 +5,7 @@ var $img = document.querySelector('div.column-half>img');
 var $form = document.querySelector('#journal-entry');
 var $dataViewDivs = document.querySelectorAll('div[data-view]');
 var ul = document.querySelector('ul.padding-left-0');
+var EntryFormHeader = document.querySelector('form#journal-entry>div.column-full>h1');
 
 function entryViewCreation(entry) {
   var li = document.createElement('li');
@@ -110,5 +111,13 @@ document.addEventListener('click', function (event) {
     switchView('entries');
   } else if (event.target.getAttribute('name') === 'newButton') {
     switchView('entry-form');
+    EntryFormHeader.textContent = 'New Entry';
+  }
+});
+
+ul.addEventListener('click', function (event) {
+  if (event.target.className === 'fas fa-pen') {
+    switchView('entry-form');
+    EntryFormHeader.textContent = 'Edit Entry';
   }
 });
