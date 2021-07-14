@@ -3,10 +3,35 @@
 
 var $img = document.querySelector('div.column-half>img');
 var $form = document.querySelector('#journal-entry');
-var $nav = document.querySelector('nav');
 var $divEntryForm = document.querySelector('div[data-view="entry-form"]');
 var $divEntries = document.querySelector('div[data-view="entries"]');
 var ul = document.querySelector('ul.padding-left-0');
+
+function entryViewCreation(entry) {
+  var li = document.createElement('li');
+  li.setAttribute('class', 'row margin-bottom-li');
+
+  var imgDiv = document.createElement('div');
+  imgDiv.setAttribute('class', 'column-half');
+  var imgView = document.createElement('img');
+  imgView.setAttribute('class', 'cover img-container-view');
+  imgView.setAttribute('src', entry.imgURL);
+  imgView.setAttribute('alt', 'journal-entry-image');
+
+  var textDiv = document.createElement('div');
+  textDiv.setAttribute('class', 'column-half');
+  var h2Title = document.createElement('h2');
+  h2Title.textContent = entry.title;
+  var pNotes = document.createElement('p');
+  pNotes.textContent = entry.notes;
+
+  imgDiv.appendChild(imgView);
+  textDiv.appendChild(h2Title);
+  textDiv.appendChild(pNotes);
+  li.appendChild(imgDiv);
+  li.appendChild(textDiv);
+  return li;
+}
 
 function imgURL(event) {
   if (event.target.getAttribute('name') !== 'imgURL') {
@@ -37,29 +62,8 @@ function entryFormData(event) {
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
   $form.reset();
 
-  var li = document.createElement('li');
-  li.setAttribute('class', 'row margin-bottom-li');
-
-  var imgDiv = document.createElement('div');
-  imgDiv.setAttribute('class', 'column-half');
-  var imgView = document.createElement('img');
-  imgView.setAttribute('class', 'cover img-container-view');
-  imgView.setAttribute('src', data.entries[0].imgURL);
-  imgView.setAttribute('alt', 'journal-entry-image');
-
-  var textDiv = document.createElement('div');
-  textDiv.setAttribute('class', 'column-half');
-  var h2Title = document.createElement('h2');
-  h2Title.textContent = data.entries[0].title;
-  var pNotes = document.createElement('p');
-  pNotes.textContent = data.entries[0].notes;
-
-  imgDiv.appendChild(imgView);
-  textDiv.appendChild(h2Title);
-  textDiv.appendChild(pNotes);
-  li.appendChild(imgDiv);
-  li.appendChild(textDiv);
-  ul.prepend(li);
+  var newEntry = entryViewCreation(data.entries[0]);
+  ul.prepend(newEntry);
 
   $divEntryForm.className += ' ' + 'hidden';
   $divEntries.className = 'container';
@@ -76,52 +80,29 @@ function journalEntryView(event) {
     $divEntries.className += ' ' + 'hidden';
     $divEntryForm.className = 'container';
   }
+  if (data.entries.length === 0) {
+    var noEntries = document.querySelector('div.justify-center');
+    noEntries.className = 'row justify-center';
+  }
 
   for (var i = 0; i < data.entries.length; i++) {
-    var li = document.createElement('li');
-    li.setAttribute('class', 'row margin-bottom-li');
-
-    var imgDiv = document.createElement('div');
-    imgDiv.setAttribute('class', 'column-half');
-    var imgView = document.createElement('img');
-    imgView.setAttribute('class', 'cover img-container-view');
-    imgView.setAttribute('src', data.entries[i].imgURL);
-    imgView.setAttribute('alt', 'journal-entry-image');
-
-    var textDiv = document.createElement('div');
-    textDiv.setAttribute('class', 'column-half');
-    var h2Title = document.createElement('h2');
-    h2Title.textContent = data.entries[i].title;
-    var pNotes = document.createElement('p');
-    pNotes.textContent = data.entries[i].notes;
-
-    imgDiv.appendChild(imgView);
-    textDiv.appendChild(h2Title);
-    textDiv.appendChild(pNotes);
-    li.appendChild(imgDiv);
-    li.appendChild(textDiv);
-    ul.appendChild(li);
+    var displayEntries = entryViewCreation(data.entries[i]);
+    ul.appendChild(displayEntries);
   }
 }
 
 window.addEventListener('DOMContentLoaded', journalEntryView);
 
-function goToViewEntries(event) {
+function switchView(event) {
   if (event.target.textContent === 'Entries') {
     $divEntryForm.className += ' ' + 'hidden';
     $divEntries.className = 'container';
     data.view = 'entries';
-  }
-}
-
-$nav.addEventListener('click', goToViewEntries);
-
-function goToCreateEntries(event) {
-  if (event.target.getAttribute('name') === 'newButton') {
+  } else if (event.target.getAttribute('name') === 'newButton') {
     $divEntries.className += ' ' + 'hidden';
     $divEntryForm.className = 'container';
     data.view = 'entry-form';
   }
 }
 
-document.addEventListener('click', goToCreateEntries);
+document.addEventListener('click', switchView);
