@@ -3,6 +3,9 @@
 
 var $img = document.querySelector('div.column-half>img');
 var $form = document.querySelector('#journal-entry');
+var $nav = document.querySelector('nav');
+var $divEntryForm = document.querySelector('div[data-view="entry-form"]');
+var $divEntries = document.querySelector('div[data-view="entries"]');
 
 function imgURL(event) {
   if (event.target.getAttribute('name') !== 'imgURL') {
@@ -66,3 +69,21 @@ function journalEntryView(event) {
 }
 
 window.addEventListener('DOMContentLoaded', journalEntryView);
+
+function goToViewEntries(event) {
+  if (event.target.textContent === 'Entries') {
+    $divEntryForm.className += ' ' + 'hidden';
+    $divEntries.className = 'container';
+  }
+}
+
+$nav.addEventListener('click', goToViewEntries);
+
+function goToCreateEntries(event) {
+  if (event.target.getAttribute('name') === 'newButton') {
+    $divEntries.className += ' ' + 'hidden';
+    $divEntryForm.className = 'container';
+  }
+}
+
+document.addEventListener('click', goToCreateEntries);
