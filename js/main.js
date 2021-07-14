@@ -68,6 +68,14 @@ function entryFormData(event) {
 $form.addEventListener('submit', entryFormData);
 
 function journalEntryView(event) {
+  if (data.view === 'entries') {
+    $divEntryForm.className += ' ' + 'hidden';
+    $divEntries.className = 'container';
+  } else if (data.view === 'entry-form') {
+    $divEntries.className += ' ' + 'hidden';
+    $divEntryForm.className = 'container';
+  }
+
   for (var i = 0; i < data.entries.length; i++) {
     var li = document.createElement('li');
     li.setAttribute('class', 'row margin-bottom-li');
@@ -101,6 +109,7 @@ function goToViewEntries(event) {
   if (event.target.textContent === 'Entries') {
     $divEntryForm.className += ' ' + 'hidden';
     $divEntries.className = 'container';
+    data.view = 'entries';
   }
 }
 
@@ -110,6 +119,7 @@ function goToCreateEntries(event) {
   if (event.target.getAttribute('name') === 'newButton') {
     $divEntries.className += ' ' + 'hidden';
     $divEntryForm.className = 'container';
+    data.view = 'entry-form';
   }
 }
 
