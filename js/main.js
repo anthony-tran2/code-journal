@@ -93,7 +93,7 @@ function switchView(string) {
 }
 
 document.addEventListener('click', function (event) {
-  if (event.target.textContent === 'Entries') {
+  if (event.target.getAttribute('class') === 'entriesNav') {
     switchView('entries');
   } else if (event.target.getAttribute('name') === 'newButton') {
     switchView('entry-form');
