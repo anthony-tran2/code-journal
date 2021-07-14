@@ -59,10 +59,6 @@ input.notes-input {
   height: 10rem;
 }
 
-.column-always-half {
-  flex-basis: 50%;
-}
-
 .logo {
   font-family: 'Open Sans Condensed', sans-serif;
 }
@@ -130,6 +126,12 @@ input.notes-input {
 
 .justify-center {
   justify-content: center;
+}
+
+@media screen and (min-width: 0) {
+  div[data-view="entries"] > div.row > div.column-half {
+    flex-basis: 50%;
+  }
 }
 
 @media screen and (min-width: 767px) {
