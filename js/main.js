@@ -60,6 +60,9 @@ function entryFormData(event) {
   li.appendChild(imgDiv);
   li.appendChild(textDiv);
   ul.prepend(li);
+
+  $divEntryForm.className += ' ' + 'hidden';
+  $divEntries.className = 'container';
 }
 
 $form.addEventListener('submit', entryFormData);
