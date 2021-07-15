@@ -165,3 +165,13 @@ ul.addEventListener('click', function (event) {
     $img.setAttribute('src', $form.elements.imgURL.value);
   }
 });
+
+function deleteEntry(event) {
+  if (event.target.getAttribute('name') !== 'deleteEntryButton') {
+    return;
+  }
+  var modalDiv = document.querySelector('.modal-row');
+  modalDiv.className = 'modal-row tint true-center position-fixed';
+}
+
+deleteEntryButton.addEventListener('click', deleteEntry);
