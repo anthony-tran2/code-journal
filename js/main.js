@@ -127,5 +127,10 @@ ul.addEventListener('click', function (event) {
     }
     switchView('entry-form');
     EntryFormHeader.textContent = 'Edit Entry';
+
+    $form.elements.title.value = data.editing.title;
+    $form.elements.imgURL.value = data.editing.imgURL;
+    $form.elements.notes.value = data.editing.notes;
+    $img.setAttribute('src', $form.elements.imgURL.value);
   }
 });
