@@ -24,9 +24,9 @@ function entryViewCreation(entry) {
   var titleRowDiv = document.createElement('div');
   titleRowDiv.className = 'row';
   var h2TitleDiv = document.createElement('div');
-  h2TitleDiv.className = 'column-half entryTitle';
+  h2TitleDiv.className = 'entryTitle';
   var iconDiv = document.createElement('div');
-  iconDiv.className = 'column-half text-align-right icon';
+  iconDiv.className = 'text-align-right icon';
   var icon = document.createElement('i');
   icon.className = 'fas fa-pen';
   var h2Title = document.createElement('h2');
@@ -116,7 +116,15 @@ document.addEventListener('click', function (event) {
 });
 
 ul.addEventListener('click', function (event) {
+  var eventLiParent = event.target.closest('li');
+  var parentId = eventLiParent.getAttribute('data-entry-id');
   if (event.target.className === 'fas fa-pen') {
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId + '' === parentId) {
+        data.editing = data.entries[i];
+        break;
+      }
+    }
     switchView('entry-form');
     EntryFormHeader.textContent = 'Edit Entry';
   }

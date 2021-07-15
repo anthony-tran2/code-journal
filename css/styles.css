@@ -59,6 +59,14 @@ input.notes-input {
   height: 10rem;
 }
 
+div.icon {
+  flex-basis: 5%;
+}
+
+div.entryTitle {
+  flex-basis: 84%;
+}
+
 .logo {
   font-family: 'Open Sans Condensed', sans-serif;
 }
@@ -134,9 +142,7 @@ input.notes-input {
 }
 
 @media screen and (min-width: 0) {
-  div[data-view="entries"] > div.row > div.column-half,
-  div.icon,
-  div.entryTitle {
+  div[data-view="entries"] > div.row > div.column-half {
     flex-basis: 50%;
   }
 }
