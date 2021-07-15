@@ -5,7 +5,7 @@ var $img = document.querySelector('div.column-half>img');
 var $form = document.querySelector('#journal-entry');
 var $dataViewDivs = document.querySelectorAll('div[data-view]');
 var ul = document.querySelector('ul.padding-left-0');
-var EntryFormHeader = document.querySelector('form#journal-entry>div.column-full>h1');
+var entryFormHeader = document.querySelector('form#journal-entry>div.column-full>h1');
 
 function entryViewCreation(entry) {
   var li = document.createElement('li');
@@ -58,7 +58,7 @@ function switchView(string) {
 }
 
 function newHeader(newTitle) {
-  EntryFormHeader.textContent = newTitle;
+  entryFormHeader.textContent = newTitle;
 }
 
 function resetImg() {
