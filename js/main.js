@@ -46,6 +46,17 @@ function entryViewCreation(entry) {
   return li;
 }
 
+function switchView(string) {
+  for (var i = 0; i < $dataViewDivs.length; i++) {
+    if ($dataViewDivs[i].getAttribute('data-view') !== string) {
+      $dataViewDivs[i].className += ' ' + 'hidden';
+    } else {
+      $dataViewDivs[i].className = 'container';
+    }
+  }
+  data.view = string;
+}
+
 function newHeader(newTitle) {
   EntryFormHeader.textContent = newTitle;
 }
@@ -81,18 +92,26 @@ function entryFormData(event) {
     formInputs.entryId = data.nextEntryId;
     data.nextEntryId += 1;
     data.entries.unshift(formInputs);
+    var newEntry = entryViewCreation(data.entries[0]);
+    ul.prepend(newEntry);
   } else {
     for (var i = 0; i < data.entries.length; i++) {
       if (data.entries[i].entryId === data.editing.entryId) {
+        formInputs.entryId = data.editing.entryId;
         data.entries[i] = formInputs;
+        var currentLi = ul.querySelector('li[data-entry-id="' + data.entries[i].entryId + '"]');
+        var currentImg = currentLi.querySelector('img.img-container-view');
+        var currentTitle = currentLi.querySelector('div.entryTitle>h2');
+        var currentNotes = currentLi.querySelector('div>p');
+        currentImg.setAttribute('src', data.entries[i].imgURL);
+        currentTitle.textContent = data.entries[i].title;
+        currentNotes.textContent = data.entries[i].notes;
         break;
       }
     }
   }
   resetImg();
   $form.reset();
-  var newEntry = entryViewCreation(data.entries[0]);
-  ul.prepend(newEntry);
   switchView('entries');
 }
 
@@ -111,17 +130,6 @@ function journalEntryView(event) {
 }
 
 window.addEventListener('DOMContentLoaded', journalEntryView);
-
-function switchView(string) {
-  for (var i = 0; i < $dataViewDivs.length; i++) {
-    if ($dataViewDivs[i].getAttribute('data-view') !== string) {
-      $dataViewDivs[i].className += ' ' + 'hidden';
-    } else {
-      $dataViewDivs[i].className = 'container';
-    }
-  }
-  data.view = string;
-}
 
 document.addEventListener('click', function (event) {
   if (event.target.getAttribute('class') === 'entriesNav') {
