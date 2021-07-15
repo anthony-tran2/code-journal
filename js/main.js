@@ -7,6 +7,8 @@ var $dataViewDivs = document.querySelectorAll('div[data-view]');
 var ul = document.querySelector('ul.padding-left-0');
 var entryFormHeader = document.querySelector('form#journal-entry>div.column-full>h1');
 var deleteEntryButton = $form.querySelector('button[name="deleteEntryButton"]');
+var cancelButton = document.querySelector('button.cancelButton');
+var modalDiv = document.querySelector('.modal-row');
 
 function entryViewCreation(entry) {
   var li = document.createElement('li');
@@ -170,8 +172,13 @@ function deleteEntry(event) {
   if (event.target.getAttribute('name') !== 'deleteEntryButton') {
     return;
   }
-  var modalDiv = document.querySelector('.modal-row');
   modalDiv.className = 'modal-row tint true-center position-fixed';
 }
 
 deleteEntryButton.addEventListener('click', deleteEntry);
+
+function hideModal(event) {
+  modalDiv.className = ' ' + 'hidden';
+}
+
+cancelButton.addEventListener('click', hideModal);
