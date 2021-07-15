@@ -6,6 +6,7 @@ var $form = document.querySelector('#journal-entry');
 var $dataViewDivs = document.querySelectorAll('div[data-view]');
 var ul = document.querySelector('ul.padding-left-0');
 var entryFormHeader = document.querySelector('form#journal-entry>div.column-full>h1');
+var deleteEntryButton = $form.querySelector('button[name="deleteEntryButton"]');
 
 function entryViewCreation(entry) {
   var li = document.createElement('li');
@@ -119,6 +120,7 @@ $form.addEventListener('submit', entryFormData);
 
 function journalEntryView(event) {
   switchView(data.view);
+  deleteEntryButton.className = 'delete-button-design hidden';
   if (data.entries.length === 0) {
     var noEntries = document.querySelector('div.justify-center');
     noEntries.className = 'row justify-center';
@@ -153,6 +155,7 @@ ul.addEventListener('click', function (event) {
         break;
       }
     }
+    deleteEntryButton.className = 'delete-button-design';
     switchView('entry-form');
     newHeader('Edit Entry');
 

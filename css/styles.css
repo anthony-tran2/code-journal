@@ -141,8 +141,19 @@ div.entryTitle {
   color: #5eaaa8;
 }
 
+.delete-button-design {
+  background-color: #f7f3e9;
+  color: red;
+  text-decoration-line: underline;
+  border: none;
+  font-family: 'Cabin', sans-serif;
+  font-size: 1rem;
+}
+
 @media screen and (min-width: 0) {
-  div[data-view="entries"] > div.row > div.column-half {
+  div[data-view="entries"] > div.row > div.column-half,
+  div[name="deleteEntryDiv"],
+  div[name="submitButtonDiv"] {
     flex-basis: 50%;
   }
 }
