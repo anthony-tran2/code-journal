@@ -5,10 +5,12 @@ var $img = document.querySelector('div.column-half>img');
 var $form = document.querySelector('#journal-entry');
 var $dataViewDivs = document.querySelectorAll('div[data-view]');
 var ul = document.querySelector('ul.padding-left-0');
+var entryFormHeader = document.querySelector('form#journal-entry>div.column-full>h1');
 
 function entryViewCreation(entry) {
   var li = document.createElement('li');
   li.setAttribute('class', 'row margin-bottom-li');
+  li.setAttribute('data-entry-id', entry.entryId);
 
   var imgDiv = document.createElement('div');
   imgDiv.setAttribute('class', 'column-half');
@@ -19,17 +21,48 @@ function entryViewCreation(entry) {
 
   var textDiv = document.createElement('div');
   textDiv.setAttribute('class', 'column-half');
+  var titleRowDiv = document.createElement('div');
+  titleRowDiv.className = 'row';
+  var h2TitleDiv = document.createElement('div');
+  h2TitleDiv.className = 'entryTitle';
+  var iconDiv = document.createElement('div');
+  iconDiv.className = 'text-align-right icon';
+  var icon = document.createElement('i');
+  icon.className = 'fas fa-pen';
   var h2Title = document.createElement('h2');
   h2Title.textContent = entry.title;
   var pNotes = document.createElement('p');
   pNotes.textContent = entry.notes;
 
   imgDiv.appendChild(imgView);
-  textDiv.appendChild(h2Title);
+  iconDiv.appendChild(icon);
+  h2TitleDiv.appendChild(h2Title);
+  titleRowDiv.appendChild(h2TitleDiv);
+  titleRowDiv.appendChild(iconDiv);
+  textDiv.appendChild(titleRowDiv);
   textDiv.appendChild(pNotes);
   li.appendChild(imgDiv);
   li.appendChild(textDiv);
   return li;
+}
+
+function switchView(string) {
+  for (var i = 0; i < $dataViewDivs.length; i++) {
+    if ($dataViewDivs[i].getAttribute('data-view') !== string) {
+      $dataViewDivs[i].className += ' ' + 'hidden';
+    } else {
+      $dataViewDivs[i].className = 'container';
+    }
+  }
+  data.view = string;
+}
+
+function newHeader(newTitle) {
+  entryFormHeader.textContent = newTitle;
+}
+
+function resetImg() {
+  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 
 function imgURL(event) {
@@ -39,7 +72,7 @@ function imgURL(event) {
   var newURL = event.target.value;
   $img.setAttribute('src', newURL);
   if (event.target.value === '') {
-    $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+    resetImg();
   }
 }
 
@@ -55,13 +88,30 @@ function entryFormData(event) {
     imgURL: $form.elements.imgURL.value,
     notes: $form.elements.notes.value
   };
-  formInputs.entryId = data.nextEntryId;
-  data.nextEntryId += 1;
-  data.entries.unshift(formInputs);
-  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+  if (data.editing === null) {
+    formInputs.entryId = data.nextEntryId;
+    data.nextEntryId += 1;
+    data.entries.unshift(formInputs);
+    var newEntry = entryViewCreation(data.entries[0]);
+    ul.prepend(newEntry);
+  } else {
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing.entryId) {
+        formInputs.entryId = data.editing.entryId;
+        data.entries[i] = formInputs;
+        var currentLi = ul.querySelector('li[data-entry-id="' + data.entries[i].entryId + '"]');
+        var currentImg = currentLi.querySelector('img.img-container-view');
+        var currentTitle = currentLi.querySelector('div.entryTitle>h2');
+        var currentNotes = currentLi.querySelector('div>p');
+        currentImg.setAttribute('src', data.entries[i].imgURL);
+        currentTitle.textContent = data.entries[i].title;
+        currentNotes.textContent = data.entries[i].notes;
+        break;
+      }
+    }
+  }
+  resetImg();
   $form.reset();
-  var newEntry = entryViewCreation(data.entries[0]);
-  ul.prepend(newEntry);
   switchView('entries');
 }
 
@@ -81,21 +131,34 @@ function journalEntryView(event) {
 
 window.addEventListener('DOMContentLoaded', journalEntryView);
 
-function switchView(string) {
-  for (var i = 0; i < $dataViewDivs.length; i++) {
-    if ($dataViewDivs[i].getAttribute('data-view') !== string) {
-      $dataViewDivs[i].className += ' ' + 'hidden';
-    } else {
-      $dataViewDivs[i].className = 'container';
-    }
-  }
-  data.view = string;
-}
-
 document.addEventListener('click', function (event) {
   if (event.target.getAttribute('class') === 'entriesNav') {
+    $form.reset();
+    resetImg();
+    data.editing = null;
     switchView('entries');
   } else if (event.target.getAttribute('name') === 'newButton') {
     switchView('entry-form');
+    newHeader('New Entry');
+  }
+});
+
+ul.addEventListener('click', function (event) {
+  var eventLiParent = event.target.closest('li');
+  var parentId = eventLiParent.getAttribute('data-entry-id');
+  if (event.target.className === 'fas fa-pen') {
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId + '' === parentId) {
+        data.editing = data.entries[i];
+        break;
+      }
+    }
+    switchView('entry-form');
+    newHeader('Edit Entry');
+
+    $form.elements.title.value = data.editing.title;
+    $form.elements.imgURL.value = data.editing.imgURL;
+    $form.elements.notes.value = data.editing.notes;
+    $img.setAttribute('src', $form.elements.imgURL.value);
   }
 });
