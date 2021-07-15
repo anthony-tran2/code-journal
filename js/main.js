@@ -46,6 +46,14 @@ function entryViewCreation(entry) {
   return li;
 }
 
+function newHeader(newTitle) {
+  EntryFormHeader.textContent = newTitle;
+}
+
+function resetImg() {
+  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+}
+
 function imgURL(event) {
   if (event.target.getAttribute('name') !== 'imgURL') {
     return;
@@ -53,7 +61,7 @@ function imgURL(event) {
   var newURL = event.target.value;
   $img.setAttribute('src', newURL);
   if (event.target.value === '') {
-    $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+    resetImg();
   }
 }
 
@@ -72,7 +80,7 @@ function entryFormData(event) {
   formInputs.entryId = data.nextEntryId;
   data.nextEntryId += 1;
   data.entries.unshift(formInputs);
-  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+  resetImg();
   $form.reset();
   var newEntry = entryViewCreation(data.entries[0]);
   ul.prepend(newEntry);
@@ -108,10 +116,12 @@ function switchView(string) {
 
 document.addEventListener('click', function (event) {
   if (event.target.getAttribute('class') === 'entriesNav') {
+    $form.reset();
+    resetImg();
     switchView('entries');
   } else if (event.target.getAttribute('name') === 'newButton') {
     switchView('entry-form');
-    EntryFormHeader.textContent = 'New Entry';
+    newHeader('New Entry');
   }
 });
 
@@ -126,7 +136,7 @@ ul.addEventListener('click', function (event) {
       }
     }
     switchView('entry-form');
-    EntryFormHeader.textContent = 'Edit Entry';
+    newHeader('Edit Entry');
 
     $form.elements.title.value = data.editing.title;
     $form.elements.imgURL.value = data.editing.imgURL;
