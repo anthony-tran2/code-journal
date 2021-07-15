@@ -77,9 +77,18 @@ function entryFormData(event) {
     imgURL: $form.elements.imgURL.value,
     notes: $form.elements.notes.value
   };
-  formInputs.entryId = data.nextEntryId;
-  data.nextEntryId += 1;
-  data.entries.unshift(formInputs);
+  if (data.editing === null) {
+    formInputs.entryId = data.nextEntryId;
+    data.nextEntryId += 1;
+    data.entries.unshift(formInputs);
+  } else {
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing.entryId) {
+        data.entries[i] = formInputs;
+        break;
+      }
+    }
+  }
   resetImg();
   $form.reset();
   var newEntry = entryViewCreation(data.entries[0]);
@@ -118,6 +127,7 @@ document.addEventListener('click', function (event) {
   if (event.target.getAttribute('class') === 'entriesNav') {
     $form.reset();
     resetImg();
+    data.editing = null;
     switchView('entries');
   } else if (event.target.getAttribute('name') === 'newButton') {
     switchView('entry-form');
