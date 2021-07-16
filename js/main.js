@@ -59,8 +59,14 @@ function switchView(string) {
     }
   }
   data.view = string;
-  if (data.entries.length !== 0) {
-    var noEntries = document.querySelector('div.justify-center');
+  checkForEntries();
+}
+
+function checkForEntries() {
+  var noEntries = document.querySelector('div.justify-center');
+  if (data.entries.length === 0) {
+    noEntries.className = 'row justify-center';
+  } else {
     noEntries.className = 'row justify-center hidden';
   }
 }
@@ -128,10 +134,7 @@ $form.addEventListener('submit', entryFormData);
 
 function journalEntryView(event) {
   switchView(data.view);
-  if (data.entries.length === 0) {
-    var noEntries = document.querySelector('div.justify-center');
-    noEntries.className = 'row justify-center';
-  }
+  checkForEntries();
   for (var i = 0; i < data.entries.length; i++) {
     var displayEntries = entryViewCreation(data.entries[i]);
     ul.appendChild(displayEntries);
@@ -207,6 +210,7 @@ function deleteEntry(event) {
   hideModal();
   deleteEntryButton.className += ' ' + 'hidden';
   switchView('entries');
+  checkForEntries();
   $form.elements.title.value = null;
   $form.elements.imgURL.value = null;
   $form.elements.notes.value = null;
