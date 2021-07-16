@@ -200,7 +200,7 @@ function deleteEntry(event) {
     }
   }
   data.nextEntryId = 1;
-  for (var d = 0; d < data.entries.length; d++) {
+  for (var d = data.entries.length - 1; d >= data.entries.length; d--) {
     data.entries[d].entryId = data.nextEntryId;
     data.nextEntryId++;
   }
