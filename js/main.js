@@ -6,6 +6,10 @@ var $form = document.querySelector('#journal-entry');
 var $dataViewDivs = document.querySelectorAll('div[data-view]');
 var ul = document.querySelector('ul.padding-left-0');
 var entryFormHeader = document.querySelector('form#journal-entry>div.column-full>h1');
+var deleteEntryButton = $form.querySelector('button[name="deleteEntryButton"]');
+var cancelButton = document.querySelector('button.cancelButton');
+var modalDiv = document.querySelector('.modal-row');
+var confirmButton = document.querySelector('button.confirmButton');
 
 function entryViewCreation(entry) {
   var li = document.createElement('li');
@@ -55,6 +59,16 @@ function switchView(string) {
     }
   }
   data.view = string;
+  checkForEntries();
+}
+
+function checkForEntries() {
+  var noEntries = document.querySelector('div.justify-center');
+  if (data.entries.length === 0) {
+    noEntries.className = 'row justify-center';
+  } else {
+    noEntries.className = 'row justify-center hidden';
+  }
 }
 
 function newHeader(newTitle) {
@@ -112,6 +126,7 @@ function entryFormData(event) {
   }
   resetImg();
   $form.reset();
+  deleteEntryButton.className += ' ' + 'hidden';
   switchView('entries');
 }
 
@@ -119,10 +134,7 @@ $form.addEventListener('submit', entryFormData);
 
 function journalEntryView(event) {
   switchView(data.view);
-  if (data.entries.length === 0) {
-    var noEntries = document.querySelector('div.justify-center');
-    noEntries.className = 'row justify-center';
-  }
+  checkForEntries();
   for (var i = 0; i < data.entries.length; i++) {
     var displayEntries = entryViewCreation(data.entries[i]);
     ul.appendChild(displayEntries);
@@ -140,6 +152,7 @@ document.addEventListener('click', function (event) {
   } else if (event.target.getAttribute('name') === 'newButton') {
     switchView('entry-form');
     newHeader('New Entry');
+    data.editing = null;
   }
 });
 
@@ -153,6 +166,7 @@ ul.addEventListener('click', function (event) {
         break;
       }
     }
+    deleteEntryButton.className = 'delete-button-design';
     switchView('entry-form');
     newHeader('Edit Entry');
 
@@ -162,3 +176,45 @@ ul.addEventListener('click', function (event) {
     $img.setAttribute('src', $form.elements.imgURL.value);
   }
 });
+
+function modalPopUp(event) {
+  if (event.target.getAttribute('name') !== 'deleteEntryButton') {
+    return;
+  }
+  modalDiv.className = 'modal-row tint true-center position-fixed';
+}
+
+deleteEntryButton.addEventListener('click', modalPopUp);
+
+function hideModal(event) {
+  modalDiv.className = ' ' + 'hidden';
+}
+
+cancelButton.addEventListener('click', hideModal);
+
+function deleteEntry(event) {
+  event.preventDefault();
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing.entryId) {
+      var ulCurrentChild = ul.querySelector('li[data-entry-id="' + data.entries[i].entryId + '"]');
+      ul.removeChild(ulCurrentChild);
+      data.entries.splice(i, 1);
+      break;
+    }
+  }
+  data.nextEntryId = 1;
+  for (var d = data.entries.length - 1; d >= data.entries.length; d--) {
+    data.entries[d].entryId = data.nextEntryId;
+    data.nextEntryId++;
+  }
+  hideModal();
+  deleteEntryButton.className += ' ' + 'hidden';
+  switchView('entries');
+  checkForEntries();
+  $form.elements.title.value = null;
+  $form.elements.imgURL.value = null;
+  $form.elements.notes.value = null;
+  resetImg();
+}
+
+confirmButton.addEventListener('click', deleteEntry);
